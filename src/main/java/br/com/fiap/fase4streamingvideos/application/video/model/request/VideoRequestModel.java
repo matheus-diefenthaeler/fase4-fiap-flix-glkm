@@ -1,53 +1,59 @@
-package br.com.fiap.fase4streamingvideos.domain;
+package br.com.fiap.fase4streamingvideos.application.video.model.request;
 
-import java.time.LocalDate;
-
-public class Video implements IVideo {
+public class VideoRequestModel {
 
     private Long id;
     private String title;
     private String description;
     private String url;
-    private LocalDate createdAt;
 
     private String category;
 
-    public Video(Long id, String title, String description, String url, String category) {
+    public VideoRequestModel(Long id, String title, String description, String url, String category) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.url = url;
-        this.createdAt = LocalDate.now();
         this.category = category;
     }
 
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
 
-    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getUrl() {
         return url;
     }
 
-    @Override
-    public LocalDate getCreatedAt() {
-        return createdAt;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    @Override
     public String getCategory() {
         return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
