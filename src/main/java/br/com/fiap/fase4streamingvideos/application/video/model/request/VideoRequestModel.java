@@ -2,27 +2,17 @@ package br.com.fiap.fase4streamingvideos.application.video.model.request;
 
 public class VideoRequestModel {
 
-    private Long id;
     private String title;
     private String description;
     private String url;
 
     private String category;
 
-    public VideoRequestModel(Long id, String title, String description, String url, String category) {
-        this.id = id;
+    public VideoRequestModel(String title, String description, String url, String category) {
         this.title = title;
         this.description = description;
         this.url = url;
         this.category = category;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {

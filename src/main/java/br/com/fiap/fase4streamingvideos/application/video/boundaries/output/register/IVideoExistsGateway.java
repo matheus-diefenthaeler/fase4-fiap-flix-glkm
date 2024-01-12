@@ -2,5 +2,5 @@ package br.com.fiap.fase4streamingvideos.application.video.boundaries.output.reg
 
 public interface IVideoExistsGateway {
 
-    boolean existsById(Long id);
+    boolean existsByTitle(String title);
 }

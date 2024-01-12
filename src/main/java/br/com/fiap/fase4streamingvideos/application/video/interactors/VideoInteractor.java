@@ -23,15 +23,15 @@ public class VideoInteractor implements IVideoRegisterBoundary {
 
     @Override
     public VideoResponseModel create(VideoRequestModel requestModel) throws VideoCustomException {
-        if (gateway.existsById(requestModel.getId())) {
+        if (gateway.existsByTitle(requestModel.getTitle())) {
             return presenter.prepareFailView(new VideoCustomException("Video with title: " + requestModel.getTitle() + " already in database"));
         }
 
-        IVideo video = factory.create(requestModel.getId(), requestModel.getTitle(), requestModel.getDescription(), requestModel.getUrl(), requestModel.getCategory());
+        IVideo video = factory.create(requestModel.getTitle(), requestModel.getDescription(), requestModel.getUrl(), requestModel.getCategory());
 
         gateway.save(video);
 
-        VideoResponseModel responseModel = new VideoResponseModel(video.getId(), video.getTitle(), video.getDescription(), video.getUrl(), String.valueOf(video.getCreatedAt()));
+        VideoResponseModel responseModel = new VideoResponseModel(video.getTitle(), video.getDescription(), video.getUrl(), String.valueOf(video.getCreatedAt()));
 
         return presenter.prepareSuccessView(responseModel);
     }

@@ -4,26 +4,16 @@ import java.util.Objects;
 
 public class VideoResponseModel {
 
-    private Long id;
     private String titulo;
     private String descricao;
     private String url;
     private String createdAt;
 
-    public VideoResponseModel(Long id, String titulo, String descricao, String url, String createdAt) {
-        this.id = id;
+    public VideoResponseModel(String titulo, String descricao, String url, String createdAt) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.url = url;
         this.createdAt = createdAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitulo() {

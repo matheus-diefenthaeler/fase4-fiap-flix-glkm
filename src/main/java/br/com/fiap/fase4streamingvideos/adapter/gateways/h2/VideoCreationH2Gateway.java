@@ -17,16 +17,17 @@ public class VideoCreationH2Gateway implements IVideoRegisterGateway {
     public VideoCreationH2Gateway() {
     }
 
-    @Override
-    public boolean existsById(Long id) {
-        return this._repository.existsById(id);
-    }
 
     @Override
     public void save(IVideo iVideo) {
-        VideoJpaMapper videoJpaMapper = new VideoJpaMapper(iVideo.getId(), iVideo.getTitle(),
+        VideoJpaMapper videoJpaMapper = new VideoJpaMapper(iVideo.getTitle(),
                 iVideo.getDescription(), iVideo.getUrl(), iVideo.getCreatedAt(), iVideo.getCategory());
 
         this._repository.save(videoJpaMapper);
+    }
+
+    @Override
+    public boolean existsByTitle(String title) {
+        return this._repository.existsByTitle(title);
     }
 }
