@@ -4,7 +4,7 @@ import br.com.fiap.fase4streamingvideos.application.video.exception.VideoCustomE
 import br.com.fiap.fase4streamingvideos.application.video.model.request.VideoRequestModel;
 import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoResponseModel;
 
-public interface IVideoRegisterBoundary {
+public interface ICreateVideoBoundary {
 
     VideoResponseModel create(VideoRequestModel requestModel) throws VideoCustomException;
 }

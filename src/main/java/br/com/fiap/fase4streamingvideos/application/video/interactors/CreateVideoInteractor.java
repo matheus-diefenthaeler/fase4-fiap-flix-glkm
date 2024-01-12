@@ -1,6 +1,6 @@
 package br.com.fiap.fase4streamingvideos.application.video.interactors;
 
-import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.IVideoRegisterBoundary;
+import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.ICreateVideoBoundary;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IVideoRegisterGateway;
 import br.com.fiap.fase4streamingvideos.application.video.exception.VideoCustomException;
 import br.com.fiap.fase4streamingvideos.application.video.model.request.VideoRequestModel;
@@ -9,13 +9,13 @@ import br.com.fiap.fase4streamingvideos.application.video.presenter.IVideoPresen
 import br.com.fiap.fase4streamingvideos.domain.IVideo;
 import br.com.fiap.fase4streamingvideos.domain.factories.IVideoFactory;
 
-public class VideoInteractor implements IVideoRegisterBoundary {
+public class CreateVideoInteractor implements ICreateVideoBoundary {
 
     IVideoPresenter presenter;
     IVideoFactory factory;
     IVideoRegisterGateway gateway;
 
-    public VideoInteractor(IVideoPresenter presenter, IVideoFactory factory, IVideoRegisterGateway gateway) {
+    public CreateVideoInteractor(IVideoPresenter presenter, IVideoFactory factory, IVideoRegisterGateway gateway) {
         this.presenter = presenter;
         this.factory = factory;
         this.gateway = gateway;
