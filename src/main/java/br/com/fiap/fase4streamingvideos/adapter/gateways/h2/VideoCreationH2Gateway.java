@@ -4,7 +4,6 @@ import br.com.fiap.fase4streamingvideos.adapter.gateways.mapper.VideoJpaMapper;
 import br.com.fiap.fase4streamingvideos.adapter.repository.IVideoRepository;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IVideoRegisterGateway;
 import br.com.fiap.fase4streamingvideos.domain.IVideo;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class VideoCreationH2Gateway implements IVideoRegisterGateway {
 
     @Autowired
-    IVideoRepository _repository;
+    IVideoRepository repository;
 
     public VideoCreationH2Gateway() {
     }
@@ -23,11 +22,11 @@ public class VideoCreationH2Gateway implements IVideoRegisterGateway {
         VideoJpaMapper videoJpaMapper = new VideoJpaMapper(iVideo.getTitle(),
                 iVideo.getDescription(), iVideo.getUrl(), iVideo.getCreatedAt(), iVideo.getCategory());
 
-        this._repository.save(videoJpaMapper);
+        this.repository.save(videoJpaMapper);
     }
 
     @Override
     public boolean existsByTitle(String title) {
-        return this._repository.existsByTitle(title);
+        return this.repository.existsByTitle(title);
     }
 }
