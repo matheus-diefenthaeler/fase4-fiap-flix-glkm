@@ -3,30 +3,29 @@ package br.com.fiap.fase4streamingvideos.domain;
 import java.time.LocalDate;
 
 public class Video implements IVideo {
-
-    private String titulo;
-    private String descricao;
+    private String title;
+    private String description;
     private String url;
-    private LocalDate dataPublicacao;
+    private LocalDate createdAt;
 
     private String category;
 
-    public Video(String titulo, String descricao, String url, LocalDate dataPublicacao, String category) {
-        this.titulo = titulo;
-        this.descricao = descricao;
+    public Video(String title, String description, String url, String category) {
+        this.title = title;
+        this.description = description;
         this.url = url;
-        this.dataPublicacao = dataPublicacao;
-        this.category=category;
+        this.createdAt = LocalDate.now();
+        this.category = category;
     }
 
     @Override
-    public String getTitulo() {
-        return titulo;
+    public String getTitle() {
+        return title;
     }
 
     @Override
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -35,8 +34,8 @@ public class Video implements IVideo {
     }
 
     @Override
-    public LocalDate getDataPublicacao() {
-        return dataPublicacao;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
     @Override

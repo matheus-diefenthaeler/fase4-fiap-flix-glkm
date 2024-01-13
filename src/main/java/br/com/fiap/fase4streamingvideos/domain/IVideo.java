@@ -3,10 +3,13 @@ package br.com.fiap.fase4streamingvideos.domain;
 import java.time.LocalDate;
 
 public interface IVideo {
+    String getTitle();
 
-    String getTitulo();
-    String getDescricao();
+    String getDescription();
+
     String getUrl();
-    LocalDate getDataPublicacao();
+
+    LocalDate getCreatedAt();
+
     String getCategory();
 }
