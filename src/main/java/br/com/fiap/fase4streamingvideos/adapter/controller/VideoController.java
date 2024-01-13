@@ -1,6 +1,7 @@
 package br.com.fiap.fase4streamingvideos.adapter.controller;
 
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.ICreateVideoBoundary;
+import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.IReadVideoBoundary;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IGetVideoGateway;
 import br.com.fiap.fase4streamingvideos.application.video.model.request.VideoRequestModel;
 import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoResponseModel;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class VideoController {
 
     ICreateVideoBoundary inputBoundary;
-    IGetVideoGateway getInputBoundary;
+    IReadVideoBoundary readVideoBoundary;
 
-    public VideoController(ICreateVideoBoundary inputBoundary, IGetVideoGateway getInputBoundary) {
+    public VideoController(ICreateVideoBoundary inputBoundary, IReadVideoBoundary readVideoBoundary) {
         this.inputBoundary = inputBoundary;
-        this.getInputBoundary = getInputBoundary;
+        this.readVideoBoundary = readVideoBoundary;
     }
 
     @PostMapping
@@ -28,7 +29,7 @@ public class VideoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<VideoResponseModel> findByID(@PathVariable Long id) {
-        VideoResponseModel video = getInputBoundary.findById(id);
+        VideoResponseModel video = readVideoBoundary.findById(id);
         return ResponseEntity.ok(video);
     }
 

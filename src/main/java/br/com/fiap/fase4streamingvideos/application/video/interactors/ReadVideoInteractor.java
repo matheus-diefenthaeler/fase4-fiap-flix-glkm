@@ -21,7 +21,7 @@ public class ReadVideoInteractor implements IReadVideoBoundary {
 
 
     @Override
-    public VideoResponseModel getById(Long id) throws VideoCustomException {
+    public VideoResponseModel findById(Long id) throws VideoCustomException {
         VideoResponseModel model = gateway.findById(id);
 
         return presenter.prepareSuccessView(model);

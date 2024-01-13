@@ -6,5 +6,5 @@ import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoRe
 
 public interface IReadVideoBoundary {
 
-    VideoResponseModel getById(Long id) throws VideoCustomException;
+    VideoResponseModel findById(Long id) throws VideoCustomException;
 }
