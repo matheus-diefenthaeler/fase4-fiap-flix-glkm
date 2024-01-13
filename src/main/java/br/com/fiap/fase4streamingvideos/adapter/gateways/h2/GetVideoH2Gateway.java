@@ -1,6 +1,7 @@
 package br.com.fiap.fase4streamingvideos.adapter.gateways.h2;
 
 import br.com.fiap.fase4streamingvideos.adapter.gateways.mapper.VideoJpaMapper;
+import br.com.fiap.fase4streamingvideos.adapter.gateways.mapper.VideoMapper;
 import br.com.fiap.fase4streamingvideos.adapter.repository.IVideoRepository;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IGetVideoGateway;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IVideoRegisterGateway;
@@ -27,7 +28,6 @@ public class GetVideoH2Gateway implements IGetVideoGateway {
     @Override
     public VideoResponseModel findById(Long id) {
         VideoJpaMapper video = repository.findById(id).orElseThrow(() -> new VideoCustomException("Video not found!"));;
-        return new VideoResponseModel(video.getTitle(),
-                video.getDescription(), video.getUrl(), String.valueOf(video.getCreatedAt()), video.getCategory());
+        return VideoMapper.toRespondeModel(video);
     }
 }
