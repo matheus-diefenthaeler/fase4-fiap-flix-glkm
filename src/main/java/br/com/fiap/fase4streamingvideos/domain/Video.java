@@ -3,8 +3,6 @@ package br.com.fiap.fase4streamingvideos.domain;
 import java.time.LocalDate;
 
 public class Video implements IVideo {
-
-    private Long id;
     private String title;
     private String description;
     private String url;
@@ -12,18 +10,12 @@ public class Video implements IVideo {
 
     private String category;
 
-    public Video(Long id, String title, String description, String url, String category) {
-        this.id = id;
+    public Video(String title, String description, String url, String category) {
         this.title = title;
         this.description = description;
         this.url = url;
         this.createdAt = LocalDate.now();
         this.category = category;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
     }
 
     @Override
