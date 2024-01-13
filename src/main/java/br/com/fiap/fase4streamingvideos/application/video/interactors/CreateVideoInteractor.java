@@ -29,10 +29,8 @@ public class CreateVideoInteractor implements ICreateVideoBoundary {
 
         IVideo video = factory.create(requestModel.getTitle(), requestModel.getDescription(), requestModel.getUrl(), requestModel.getCategory());
 
-        gateway.save(video);
+        VideoResponseModel save = gateway.save(video);
 
-        VideoResponseModel responseModel = new VideoResponseModel(video.getTitle(), video.getDescription(), video.getUrl(), String.valueOf(video.getCreatedAt()));
-
-        return presenter.prepareSuccessView(responseModel);
+        return presenter.prepareSuccessView(save);
     }
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IVideoRepository extends JpaRepository<VideoJpaMapper, Long> {
-    public Boolean existsByTitle(String title);
+    Boolean existsByTitle(String title);
 }

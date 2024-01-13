@@ -4,16 +4,41 @@ import java.util.Objects;
 
 public class VideoResponseModel {
 
+    private Long id;
     private String titulo;
     private String descricao;
     private String url;
     private String createdAt;
 
-    public VideoResponseModel(String titulo, String descricao, String url, String createdAt) {
+    private String category;
+
+    public VideoResponseModel() {
+    }
+
+    public VideoResponseModel(String titulo, String descricao, String url, String createdAt, String category) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.url = url;
         this.createdAt = createdAt;
+        this.category = category;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public VideoResponseModel setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public VideoResponseModel setCategory(String category) {
+        this.category = category;
+        return this;
     }
 
     public String getTitulo() {
