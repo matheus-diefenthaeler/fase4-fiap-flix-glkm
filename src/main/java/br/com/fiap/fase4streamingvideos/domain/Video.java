@@ -7,7 +7,6 @@ public class Video implements IVideo {
     private String description;
     private String url;
     private LocalDate createdAt;
-
     private String category;
 
     public Video(String title, String description, String url, String category) {

@@ -17,8 +17,7 @@ public class GetVideoH2Gateway implements IGetVideoGateway {
     @Autowired
     IVideoRepository repository;
 
-    public GetVideoH2Gateway() {
-    }
+    public GetVideoH2Gateway() {}
 
     @Override
     public boolean existsByTitle(String title) {
@@ -27,7 +26,7 @@ public class GetVideoH2Gateway implements IGetVideoGateway {
 
     @Override
     public VideoResponseModel findById(Long id) {
-        VideoJpaMapper video = repository.findById(id).orElseThrow(() -> new VideoCustomException("Video not found!"));;
+        VideoJpaMapper video = repository.findById(id).orElseThrow(() -> new VideoCustomException("Video not found!"));
         return VideoMapper.toRespondeModel(video);
     }
 }

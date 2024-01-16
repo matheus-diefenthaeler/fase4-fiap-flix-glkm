@@ -15,9 +15,7 @@ public class VideoCreationH2Gateway implements IVideoRegisterGateway {
     @Autowired
     IVideoRepository repository;
 
-    public VideoCreationH2Gateway() {
-    }
-
+    public VideoCreationH2Gateway() {}
 
     @Override
     public VideoResponseModel save(IVideo iVideo) {

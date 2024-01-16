@@ -2,6 +2,9 @@ package br.com.fiap.fase4streamingvideos.adapter.gateways.mapper;
 
 import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoResponseModel;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class VideoMapper {
 
     public static VideoResponseModel toRespondeModel(VideoJpaMapper jpaMapper) {
@@ -15,6 +18,9 @@ public class VideoMapper {
         videoResponseModel.setCategory(jpaMapper.getCategory());
 
         return videoResponseModel;
+    }
 
+    public static List<VideoResponseModel> listJPAtoListRespondeModel(List<VideoJpaMapper> listJpaMapper) {
+        return listJpaMapper.stream().map(VideoMapper::toRespondeModel).collect(Collectors.toList());
     }
 }
