@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface IVideoRepository extends JpaRepository<VideoJpaMapper, Long> {
     Boolean existsByTitle(String title);
+
+    Page<VideoJpaMapper> findAll(Pageable pageable);
 }

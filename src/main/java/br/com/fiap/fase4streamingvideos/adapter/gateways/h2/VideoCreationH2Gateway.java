@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class VideoCreationH2Gateway implements IVideoRegisterGateway {
 
     @Autowired
-    IVideoRepository repository;
+    IVideoRepository _repository;
 
     public VideoCreationH2Gateway() {}
 
@@ -22,13 +22,13 @@ public class VideoCreationH2Gateway implements IVideoRegisterGateway {
         VideoJpaMapper videoJpaMapper = new VideoJpaMapper(iVideo.getTitle(),
                 iVideo.getDescription(), iVideo.getUrl(), iVideo.getCreatedAt(), iVideo.getCategory());
 
-        repository.save(videoJpaMapper);
+        _repository.save(videoJpaMapper);
 
         return VideoMapper.toRespondeModel(videoJpaMapper);
     }
 
     @Override
     public boolean existsByTitle(String title) {
-        return this.repository.existsByTitle(title);
+        return this._repository.existsByTitle(title);
     }
 }

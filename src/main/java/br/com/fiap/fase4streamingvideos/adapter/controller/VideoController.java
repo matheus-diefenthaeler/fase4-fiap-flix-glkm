@@ -1,8 +1,6 @@
 package br.com.fiap.fase4streamingvideos.adapter.controller;
 
-import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.ICreateVideoBoundary;
-import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.IGetAllVideosBoundary;
-import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.IReadVideoBoundary;
+import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.*;
 import br.com.fiap.fase4streamingvideos.application.video.model.request.VideoRequestModel;
 import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoResponseModel;
 import org.springframework.data.domain.Page;
@@ -18,18 +16,15 @@ public class VideoController {
     ICreateVideoBoundary inputBoundary;
     IReadVideoBoundary readVideoBoundary;
     IGetAllVideosBoundary getAllVideoBoundary;
+    IUpdateVideoBoundary updateVideoBoundary;
+    IDeleteVideoBoundary deleteVideoBoundary;
 
-    public VideoController(ICreateVideoBoundary inputBoundary, IReadVideoBoundary readVideoBoundary, IGetAllVideosBoundary getAllVideoBoundary) {
+    public VideoController(ICreateVideoBoundary inputBoundary, IReadVideoBoundary readVideoBoundary, IGetAllVideosBoundary getAllVideoBoundary, IUpdateVideoBoundary updateVideoBoundary, IDeleteVideoBoundary deleteVideoBoundary) {
         this.inputBoundary = inputBoundary;
         this.readVideoBoundary = readVideoBoundary;
         this.getAllVideoBoundary = getAllVideoBoundary;
-    }
-
-    @PostMapping
-    public ResponseEntity<VideoResponseModel> create(@RequestBody VideoRequestModel requestModel) {
-        VideoResponseModel responseModel = inputBoundary.create(requestModel);
-
-        return ResponseEntity.ok().body(responseModel);
+        this.updateVideoBoundary = updateVideoBoundary;
+        this.deleteVideoBoundary = deleteVideoBoundary;
     }
 
     @GetMapping("/{id}")
@@ -39,8 +34,29 @@ public class VideoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<VideoResponseModel>> findAll() {
-        List<VideoResponseModel> videos = getAllVideoBoundary.findAll();
+    public ResponseEntity<Page<VideoResponseModel>> findAll(Pageable pageable) {
+        Page<VideoResponseModel> videos = getAllVideoBoundary.findAll(pageable);
         return ResponseEntity.ok(videos);
+    }
+
+    @PostMapping
+    public ResponseEntity<VideoResponseModel> create(@RequestBody VideoRequestModel requestModel) {
+        VideoResponseModel responseModel = inputBoundary.create(requestModel);
+
+        return ResponseEntity.ok().body(responseModel);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VideoResponseModel> update(@PathVariable Long id, @RequestBody VideoRequestModel requestModel) {
+        VideoResponseModel responseModel = updateVideoBoundary.updateById(id, requestModel);
+
+        return ResponseEntity.ok().body(responseModel);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        deleteVideoBoundary.deleteById(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

@@ -15,18 +15,18 @@ import org.springframework.stereotype.Component;
 public class GetVideoH2Gateway implements IGetVideoGateway {
 
     @Autowired
-    IVideoRepository repository;
+    IVideoRepository _repository;
 
     public GetVideoH2Gateway() {}
 
     @Override
     public boolean existsByTitle(String title) {
-        return this.repository.existsByTitle(title);
+        return this._repository.existsByTitle(title);
     }
 
     @Override
     public VideoResponseModel findById(Long id) {
-        VideoJpaMapper video = repository.findById(id).orElseThrow(() -> new VideoCustomException("Video not found!"));
+        VideoJpaMapper video = _repository.findById(id).orElseThrow(() -> new VideoCustomException("Video not found!"));
         return VideoMapper.toRespondeModel(video);
     }
 }

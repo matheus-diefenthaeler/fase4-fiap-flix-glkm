@@ -24,12 +24,17 @@ public class VideoPresenter implements IVideoPresenter {
     }
 
     @Override
-    public List<VideoResponseModel> prepareFailViewList(VideoCustomException e) throws VideoCustomException {
+    public Page<VideoResponseModel> prepareFailViewList(VideoCustomException e) throws VideoCustomException {
         throw e;
     }
 
     @Override
-    public List<VideoResponseModel> prepareSuccessViewList(List<VideoResponseModel> model) {
+    public Page<VideoResponseModel> prepareSuccessViewList(Page<VideoResponseModel> model) {
         return model;
+    }
+
+    @Override
+    public String prepareSuccessViewStatus(String status) {
+        return status;
     }
 }
