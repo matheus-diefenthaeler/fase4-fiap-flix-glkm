@@ -5,7 +5,6 @@ public class VideoRequestModel {
     private String title;
     private String description;
     private String url;
-
     private String category;
 
     public VideoRequestModel(String title, String description, String url, String category) {
