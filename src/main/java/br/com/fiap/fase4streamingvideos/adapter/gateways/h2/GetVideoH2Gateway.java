@@ -27,7 +27,7 @@ public class GetVideoH2Gateway implements IGetVideoGateway {
 
     @Override
     public VideoResponseModel findById(Long id) {
-        VideoJpaMapper video = repository.findById(id).orElseThrow(() -> new VideoCustomException("Video not found!"));;
+        VideoJpaMapper video = repository.findById(id).orElseThrow(() -> new VideoCustomException("Video not found!"));
         return VideoMapper.toRespondeModel(video);
     }
 }
