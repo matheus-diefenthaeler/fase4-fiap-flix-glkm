@@ -19,16 +19,9 @@ public class UserController {
         this.inputBoundary = inputBoundary;
     }
 
-//    @PostMapping
-//    public ResponseEntity<UserResponseModel> create(@RequestBody UserRequestModel requestModel) {
-//        UserResponseModel responseModel = inputBoundary.create(requestModel);
-//
-//        return ResponseEntity.ok().body(responseModel);
-//    }
-
     @PostMapping
     public Mono<UserResponseModel> create(@RequestBody UserRequestModel requestModel) {
-        return Mono.just(inputBoundary.create(requestModel))
-                .flatMap(responseModel -> Mono.justOrEmpty(responseModel));
+        return Mono.just(inputBoundary.create(requestModel));
+//                .flatMap(responseModel -> Mono.justOrEmpty(responseModel));
     }
 }

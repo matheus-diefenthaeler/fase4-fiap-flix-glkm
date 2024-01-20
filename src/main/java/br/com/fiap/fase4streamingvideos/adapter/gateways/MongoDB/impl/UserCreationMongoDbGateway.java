@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Component
@@ -34,17 +35,36 @@ public class UserCreationMongoDbGateway implements IUserRegisterGateway {
 //        return userResponseModelRef.get();
 //    }
 
+//    @Override
+//    public UserResponseModel save(IUser iUser) {
+//        UserMongoDB user = new UserMongoDB(iUser.getName(), iUser.getEmail());
+//        Mono<UserMongoDB> saveMono = repository.save(user);
+//        //TODO ESTA DANDO ERRO NO SAVE "Cannot autogenerate id of type java.lang.Long for entity of type br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.model.UserMongoDB"
+//        AtomicReference<UserResponseModel> userResponseModelRef = new AtomicReference<>();
+//
+//        saveMono.flatMap(userMongoDB -> Mono.just(UserMapper.toResponseModel(userMongoDB))).subscribe(userResponseModelRef::set);
+//
+//        return userResponseModelRef.get();
+//    }
+
+
+
     @Override
     public UserResponseModel save(IUser iUser) {
         UserMongoDB user = new UserMongoDB(iUser.getName(), iUser.getEmail());
         Mono<UserMongoDB> saveMono = repository.save(user);
-        //TODO ESTA DANDO ERRO NO SAVE "Cannot autogenerate id of type java.lang.Long for entity of type br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.model.UserMongoDB"
-        AtomicReference<UserResponseModel> userResponseModelRef = new AtomicReference<>();
 
-        saveMono
+        return saveMono
                 .flatMap(userMongoDB -> Mono.just(UserMapper.toResponseModel(userMongoDB)))
-                .subscribe(userResponseModelRef::set);
-
-        return userResponseModelRef.get();
+                .onErrorResume(throwable -> {
+                    // Trate erros aqui, se necessário
+                    return Mono.empty();
+                })
+                .toFuture()
+                .join(); // Aguarda a conclusão e obtém o resultado
     }
+
+
+
+
 }
