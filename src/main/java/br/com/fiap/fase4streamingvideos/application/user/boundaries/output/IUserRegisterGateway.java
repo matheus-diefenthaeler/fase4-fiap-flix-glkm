@@ -6,6 +6,6 @@ import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoRe
 import br.com.fiap.fase4streamingvideos.domain.IUser;
 import br.com.fiap.fase4streamingvideos.domain.IVideo;
 
-public interface IUserRegisterGateway extends IUserExistsGateway {
+public interface IUserRegisterGateway {
     UserResponseModel save(IUser iUser);
 }
