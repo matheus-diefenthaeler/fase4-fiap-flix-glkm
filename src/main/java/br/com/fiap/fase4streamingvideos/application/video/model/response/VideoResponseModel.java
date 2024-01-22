@@ -3,7 +3,6 @@ package br.com.fiap.fase4streamingvideos.application.video.model.response;
 import java.util.Objects;
 
 public class VideoResponseModel {
-
     private Long id;
     private String titulo;
     private String descricao;
