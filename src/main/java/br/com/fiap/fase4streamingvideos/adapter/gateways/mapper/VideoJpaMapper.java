@@ -21,8 +21,8 @@ public class VideoJpaMapper {
     private String description;
     private String url;
     private LocalDate createdAt;
-
     private String category;
+
 
     public VideoJpaMapper(String title, String description, String url, LocalDate createdAt, String category) {
         this.title = title;
