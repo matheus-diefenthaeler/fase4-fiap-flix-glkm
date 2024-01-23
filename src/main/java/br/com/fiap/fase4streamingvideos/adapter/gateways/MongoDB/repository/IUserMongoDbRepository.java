@@ -13,4 +13,6 @@ public interface IUserMongoDbRepository extends ReactiveMongoRepository<UserMong
     Mono<Boolean> existsByEmail(String email);
 
     Flux<UserMongoDB> findAll();
+
+    Mono<Void> deleteByEmail(String email);
 }
