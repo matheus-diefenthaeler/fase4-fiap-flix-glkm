@@ -2,7 +2,8 @@ package br.com.fiap.fase4streamingvideos.application.video.boundaries.output.reg
 
 import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoResponseModel;
 import br.com.fiap.fase4streamingvideos.domain.IVideo;
+import reactor.core.publisher.Mono;
 
 public interface IVideoRegisterGateway extends IVideoExistsGateway {
-    VideoResponseModel save(IVideo iVideo);
+    Mono<VideoResponseModel> save(IVideo iVideo);
 }

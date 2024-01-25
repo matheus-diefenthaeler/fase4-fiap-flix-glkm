@@ -7,6 +7,7 @@ import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoRe
 import br.com.fiap.fase4streamingvideos.application.video.presenter.IVideoPresenter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import reactor.core.publisher.Flux;
 
 public class GetAllVideosInteractor implements IGetAllVideosBoundary {
     IVideoPresenter presenter;
@@ -18,12 +19,15 @@ public class GetAllVideosInteractor implements IGetAllVideosBoundary {
     }
 
     @Override
-    public Page<VideoResponseModel> findAll(Pageable pageable) throws VideoCustomException {
-        Page<VideoResponseModel> model = gateway.findAll(pageable);
-        if(model.isEmpty()){
-            return presenter.prepareFailViewList(new VideoCustomException("Videos not found"));
-        }
+    public Flux<Page<VideoResponseModel>> findAll(Pageable pageable) throws VideoCustomException {
+        Flux<Page<VideoResponseModel>> model = gateway.findAll(pageable);
 
-        return presenter.prepareSuccessViewList(model);
+        return model.flatMap(modelMap -> {
+            if (modelMap.getContent().isEmpty()) {
+                return presenter.prepareFailViewList(new VideoCustomException("Videos not found"));
+            } else {
+                return presenter.prepareSuccessViewList(Flux.just(modelMap));
+            }
+        });
     }
 }

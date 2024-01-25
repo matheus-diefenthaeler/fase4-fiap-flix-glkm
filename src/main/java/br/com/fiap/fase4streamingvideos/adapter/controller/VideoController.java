@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -28,34 +30,34 @@ public class VideoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VideoResponseModel> findByID(@PathVariable Long id) {
-        VideoResponseModel video = readVideoBoundary.findById(id);
+    public ResponseEntity<Mono<VideoResponseModel>> findByID(@PathVariable String id) {
+        Mono<VideoResponseModel> video = readVideoBoundary.findById(id);
         return ResponseEntity.ok(video);
     }
 
     @GetMapping
-    public ResponseEntity<Page<VideoResponseModel>> findAll(Pageable pageable) {
-        Page<VideoResponseModel> videos = getAllVideoBoundary.findAll(pageable);
+    public ResponseEntity<Flux<Page<VideoResponseModel>>> findAll(Pageable pageable) {
+        Flux<Page<VideoResponseModel>> videos = getAllVideoBoundary.findAll(pageable);
         return ResponseEntity.ok(videos);
     }
 
     @PostMapping
-    public ResponseEntity<VideoResponseModel> create(@RequestBody VideoRequestModel requestModel) {
-        VideoResponseModel responseModel = inputBoundary.create(requestModel);
+    public ResponseEntity<Mono<VideoResponseModel>> create(@RequestBody VideoRequestModel requestModel) {
+        Mono<VideoResponseModel> responseModel = inputBoundary.create(requestModel);
 
         return ResponseEntity.ok().body(responseModel);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VideoResponseModel> update(@PathVariable Long id, @RequestBody VideoRequestModel requestModel) {
-        VideoResponseModel responseModel = updateVideoBoundary.updateById(id, requestModel);
+    public ResponseEntity<Mono<VideoResponseModel>> update(@PathVariable String id, @RequestBody VideoRequestModel requestModel) {
+        Mono<VideoResponseModel> responseModel = updateVideoBoundary.updateById(id, requestModel);
 
         return ResponseEntity.ok().body(responseModel);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        deleteVideoBoundary.deleteById(id);
+    public ResponseEntity<Mono<Void>> delete(@PathVariable String id) {
+        this.deleteVideoBoundary.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }

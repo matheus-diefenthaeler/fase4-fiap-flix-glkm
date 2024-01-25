@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IVideoRepository extends JpaRepository<VideoJpaMapper, Long> {
+public interface IVideoRepository extends JpaRepository<VideoJpaMapper, String> {
     Boolean existsByTitle(String title);
 
     Page<VideoJpaMapper> findAll(Pageable pageable);

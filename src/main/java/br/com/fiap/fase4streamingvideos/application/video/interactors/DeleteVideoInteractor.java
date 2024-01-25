@@ -11,11 +11,11 @@ import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoRe
 import br.com.fiap.fase4streamingvideos.application.video.presenter.IVideoPresenter;
 import br.com.fiap.fase4streamingvideos.domain.IVideo;
 import br.com.fiap.fase4streamingvideos.domain.factories.IVideoFactory;
+import reactor.core.publisher.Mono;
 
 public class DeleteVideoInteractor implements IDeleteVideoBoundary {
     IVideoPresenter presenter;
     IDeleteVideoGateway gateway;
-
     IGetVideoGateway getVideoGateway;
 
     public DeleteVideoInteractor(IVideoPresenter presenter, IDeleteVideoGateway gateway, IGetVideoGateway getVideoGateway) {
@@ -25,10 +25,9 @@ public class DeleteVideoInteractor implements IDeleteVideoBoundary {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Mono<Void> deleteById(String id) {
         getVideoGateway.findById(id);
-        gateway.deleteById(id);
 
-        presenter.prepareSuccessViewStatus("Deleted Successfully");
+        return gateway.deleteById(id);
     }
 }
