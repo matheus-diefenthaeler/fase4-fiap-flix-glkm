@@ -2,18 +2,9 @@ package br.com.fiap.fase4streamingvideos.adapter.beanconfigs;
 
 import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.impl.user.UserCreationMongoDbGateway;
 import br.com.fiap.fase4streamingvideos.adapter.presenter.UserPresenter;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.ICreateUserBoundary;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.IDeleteUserBoundary;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.IFindAllUserBoundary;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.IFindByIdUserBoundary;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.IUserDeleteGateway;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.IUserFindByIdGateway;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.IUserFindGateway;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.IUserRegisterGateway;
-import br.com.fiap.fase4streamingvideos.application.user.interectors.CreateUserInteractor;
-import br.com.fiap.fase4streamingvideos.application.user.interectors.DeleteUserInteractor;
-import br.com.fiap.fase4streamingvideos.application.user.interectors.FindAllUserInteractor;
-import br.com.fiap.fase4streamingvideos.application.user.interectors.FindByIdUserInteractor;
+import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.*;
+import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.*;
+import br.com.fiap.fase4streamingvideos.application.user.interectors.*;
 import br.com.fiap.fase4streamingvideos.application.user.presenter.IUserPresenter;
 import br.com.fiap.fase4streamingvideos.domain.factories.IUserFactory;
 import br.com.fiap.fase4streamingvideos.domain.factories.UserFactory;
@@ -56,6 +47,11 @@ public class UserConfiguration {
     @Bean
     public IFindByIdUserBoundary userFindByIdInputBoundary(IUserPresenter userPresenter, IUserFactory userFactory, IUserFindByIdGateway userFindByIdGateway) {
         return new FindByIdUserInteractor(userPresenter, userFactory, userFindByIdGateway);
+    }
+
+    @Bean
+    public IGetUserFavoritesBoundary getUserFavoritesBoundary(IUserPresenter userPresenter, IUserFactory userFactory, IGetUserFavoritesGateway getUserFavoritesGateway) {
+        return new GetUserFavoritesInteractor(userPresenter, userFactory, getUserFavoritesGateway);
     }
 
 }
