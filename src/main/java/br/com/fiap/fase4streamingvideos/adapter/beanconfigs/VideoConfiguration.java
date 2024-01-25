@@ -1,6 +1,5 @@
 package br.com.fiap.fase4streamingvideos.adapter.beanconfigs;
 
-import br.com.fiap.fase4streamingvideos.adapter.gateways.h2.VideoCreationH2Gateway;
 import br.com.fiap.fase4streamingvideos.adapter.presenter.VideoPresenter;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.*;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.*;
@@ -22,11 +21,6 @@ public class VideoConfiguration {
     @Bean
     public IVideoPresenter videoPresenter(){
         return new VideoPresenter();
-    }
-
-    @Bean
-    public IVideoRegisterGateway videoRegisterGateway(){
-        return new VideoCreationH2Gateway();
     }
 
     @Bean

@@ -8,6 +8,7 @@ import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoRe
 import br.com.fiap.fase4streamingvideos.application.video.presenter.IVideoPresenter;
 import br.com.fiap.fase4streamingvideos.domain.IVideo;
 import br.com.fiap.fase4streamingvideos.domain.factories.IVideoFactory;
+import reactor.core.publisher.Mono;
 
 public class CreateVideoInteractor implements ICreateVideoBoundary {
 
@@ -22,15 +23,18 @@ public class CreateVideoInteractor implements ICreateVideoBoundary {
     }
 
     @Override
-    public VideoResponseModel create(VideoRequestModel requestModel) throws VideoCustomException {
-        if (gateway.existsByTitle(requestModel.getTitle())) {
-            return presenter.prepareFailView(new VideoCustomException("Video with title: " + requestModel.getTitle() + " already in database"));
-        }
+    public Mono<VideoResponseModel> create(VideoRequestModel requestModel) throws VideoCustomException {
+        return gateway.existsByTitle(requestModel.getTitle())
+                .flatMap(titleExists -> {
+                    if(titleExists){
+                        return presenter.prepareFailView(new VideoCustomException("Title: " + requestModel.getTitle() + "already in database"));
+                    }
 
-        IVideo video = factory.create(requestModel.getTitle(), requestModel.getDescription(), requestModel.getUrl(), requestModel.getCategory());
+                    IVideo video = factory.create(requestModel.getTitle(), requestModel.getDescription(), requestModel.getUrl(), requestModel.getCategory());
 
-        VideoResponseModel save = gateway.save(video);
+                    Mono<VideoResponseModel> save = gateway.save(video);
 
-        return presenter.prepareSuccessView(save);
+                    return presenter.prepareSuccessView(save);
+                });
     }
 }

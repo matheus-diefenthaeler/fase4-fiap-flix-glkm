@@ -8,18 +8,36 @@ import java.time.LocalDate;
 public class VideoMongoDB {
 
     @Id
-    private Long id;
+    private String id;
     private String title;
     private String description;
     private String url;
     private LocalDate createdAt;
     private String category;
 
-    public Long getId() {
+    public VideoMongoDB() {}
+
+    public VideoMongoDB(String title, String description, String url, LocalDate createdAt, String category) {
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.createdAt = createdAt;
+        this.category = category;
+    }
+
+    public VideoMongoDB(String id, String title, String description, String url, String category) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.category = category;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,5 +79,17 @@ public class VideoMongoDB {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "VideoMongoDB{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                ", createdAt=" + createdAt +
+                ", category='" + category + '\'' +
+                '}';
     }
 }

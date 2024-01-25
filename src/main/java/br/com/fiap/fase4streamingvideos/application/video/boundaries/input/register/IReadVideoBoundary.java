@@ -3,8 +3,9 @@ package br.com.fiap.fase4streamingvideos.application.video.boundaries.input.regi
 import br.com.fiap.fase4streamingvideos.application.video.exception.VideoCustomException;
 import br.com.fiap.fase4streamingvideos.application.video.model.request.VideoRequestModel;
 import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoResponseModel;
+import reactor.core.publisher.Mono;
 
 public interface IReadVideoBoundary {
 
-    VideoResponseModel findById(Long id) throws VideoCustomException;
+    Mono<VideoResponseModel> findById(String id) throws VideoCustomException;
 }

@@ -6,6 +6,7 @@ import br.com.fiap.fase4streamingvideos.application.video.exception.VideoCustomE
 import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoResponseModel;
 import br.com.fiap.fase4streamingvideos.application.video.presenter.IVideoPresenter;
 import br.com.fiap.fase4streamingvideos.domain.factories.IVideoFactory;
+import reactor.core.publisher.Mono;
 
 public class ReadVideoInteractor implements IReadVideoBoundary {
 
@@ -20,8 +21,8 @@ public class ReadVideoInteractor implements IReadVideoBoundary {
     }
 
     @Override
-    public VideoResponseModel findById(Long id) throws VideoCustomException {
-        VideoResponseModel model = gateway.findById(id);
+    public Mono<VideoResponseModel> findById(String id) throws VideoCustomException {
+        Mono<VideoResponseModel> model = gateway.findById(id);
 
         return presenter.prepareSuccessView(model);
     }

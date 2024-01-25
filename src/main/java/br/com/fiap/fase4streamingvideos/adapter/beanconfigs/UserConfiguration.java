@@ -1,6 +1,6 @@
 package br.com.fiap.fase4streamingvideos.adapter.beanconfigs;
 
-import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.impl.UserCreationMongoDbGateway;
+import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.impl.user.UserCreationMongoDbGateway;
 import br.com.fiap.fase4streamingvideos.adapter.presenter.UserPresenter;
 import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.ICreateUserBoundary;
 import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.IDeleteUserBoundary;

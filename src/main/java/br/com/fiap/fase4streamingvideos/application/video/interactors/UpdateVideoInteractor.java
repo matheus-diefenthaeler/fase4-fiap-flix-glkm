@@ -7,6 +7,7 @@ import br.com.fiap.fase4streamingvideos.application.video.exception.VideoCustomE
 import br.com.fiap.fase4streamingvideos.application.video.model.request.VideoRequestModel;
 import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoResponseModel;
 import br.com.fiap.fase4streamingvideos.application.video.presenter.IVideoPresenter;
+import reactor.core.publisher.Mono;
 
 public class UpdateVideoInteractor implements IUpdateVideoBoundary {
     IVideoPresenter presenter;
@@ -20,7 +21,7 @@ public class UpdateVideoInteractor implements IUpdateVideoBoundary {
     }
 
     @Override
-    public VideoResponseModel updateById(Long id, VideoRequestModel videoRequestModel) {
+    public Mono<VideoResponseModel> updateById(String id, VideoRequestModel videoRequestModel) {
         getVideoGateway.findById(id);
 
         if(videoRequestModel.getTitle() == null) return presenter.prepareFailView(new VideoCustomException("title field is mandatory"));
@@ -28,7 +29,7 @@ public class UpdateVideoInteractor implements IUpdateVideoBoundary {
         if(videoRequestModel.getUrl() == null) return presenter.prepareFailView(new VideoCustomException("url field is mandatory"));
         if(videoRequestModel.getCategory() == null) return presenter.prepareFailView(new VideoCustomException("category field is mandatory"));
 
-        VideoResponseModel videoResponseModel = gateway.updateById(id, videoRequestModel);
+        Mono<VideoResponseModel> videoResponseModel = gateway.updateById(id, videoRequestModel);
 
         return presenter.prepareSuccessView(videoResponseModel);
     }
