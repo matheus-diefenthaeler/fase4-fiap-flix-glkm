@@ -3,29 +3,21 @@ package br.com.fiap.fase4streamingvideos.adapter.controller;
 import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.*;
 import br.com.fiap.fase4streamingvideos.application.user.model.request.UserRequestModel;
 import br.com.fiap.fase4streamingvideos.application.user.model.response.UserResponseModel;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("v1/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    ICreateUserBoundary inputBoundary;
-    IDeleteUserBoundary inputDeleteBoundary;
-    IFindAllUserBoundary inputFindAllBoundary;
-    IFindByIdUserBoundary inputFindByIdBoundary;
-    IGetUserFavoritesBoundary iGetUserFavoritesBoundary;
-
-    public UserController(ICreateUserBoundary inputBoundary, IDeleteUserBoundary inputDeleteBoundary,
-                          IFindAllUserBoundary inputFindAllBoundary, IFindByIdUserBoundary inputFindByIdBoundary,
-                          IGetUserFavoritesBoundary iGetUserFavoritesBoundary) {
-        this.inputBoundary = inputBoundary;
-        this.inputDeleteBoundary = inputDeleteBoundary;
-        this.inputFindAllBoundary = inputFindAllBoundary;
-        this.inputFindByIdBoundary = inputFindByIdBoundary;
-        this.iGetUserFavoritesBoundary = iGetUserFavoritesBoundary;
-    }
+    private final ICreateUserBoundary inputBoundary;
+    private final IDeleteUserBoundary inputDeleteBoundary;
+    private final IFindAllUserBoundary inputFindAllBoundary;
+    private final IFindByIdUserBoundary inputFindByIdBoundary;
+    private final IGetUserFavoritesBoundary iGetUserFavoritesBoundary;
 
     @PostMapping
     public Mono<UserResponseModel> create(@RequestBody UserRequestModel requestModel) {
