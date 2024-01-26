@@ -19,7 +19,7 @@ public class GetAllVideosMongoDbGateway implements IGetAllVideosGateway {
     public GetAllVideosMongoDbGateway() {}
 
     @Override
-    public Flux<Page<VideoResponseModel>> findAll(Pageable pageable) {
+    public Flux<VideoResponseModel> findAll(Pageable pageable) {
         Flux<VideoMongoDB> videos = _repository.findAll(pageable);
 
         return VideoMapper.listMongoToListResponseModel(videos);

@@ -1,4 +1,4 @@
-package br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.impl;
+package br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.impl.user;
 
 import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.model.VideoMongoDB;
 import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.repository.IUserMongoDbRepository;

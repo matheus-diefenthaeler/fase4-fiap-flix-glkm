@@ -27,7 +27,7 @@ public class CreateVideoInteractor implements ICreateVideoBoundary {
         return gateway.existsByTitle(requestModel.getTitle())
                 .flatMap(titleExists -> {
                     if(titleExists){
-                        return presenter.prepareFailView(new VideoCustomException("Title: " + requestModel.getTitle() + "already in database"));
+                        return presenter.prepareFailView(new VideoCustomException("Title: " + requestModel.getTitle() + " already in database"));
                     }
 
                     IVideo video = factory.create(requestModel.getTitle(), requestModel.getDescription(), requestModel.getUrl(), requestModel.getCategory());

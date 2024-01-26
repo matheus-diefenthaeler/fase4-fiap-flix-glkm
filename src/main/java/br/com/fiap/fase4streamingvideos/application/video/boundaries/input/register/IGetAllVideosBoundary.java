@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 
 public interface IGetAllVideosBoundary {
-    Flux<Page<VideoResponseModel>> findAll(Pageable pageable);
+    Flux<Page<VideoResponseModel>>  findAll(Pageable pageable);
 }

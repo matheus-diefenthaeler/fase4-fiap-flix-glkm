@@ -1,7 +1,6 @@
 package br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.mapper;
 
 import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.model.VideoMongoDB;
-import br.com.fiap.fase4streamingvideos.adapter.gateways.mapper.VideoJpaMapper;
 import br.com.fiap.fase4streamingvideos.application.video.model.response.VideoResponseModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -30,17 +29,11 @@ public class VideoMapper {
         });
     }
 
-    public static Flux<Page<VideoResponseModel>> listMongoToListResponseModel(Flux<VideoMongoDB> videoFlux) {
-        return videoFlux.collectList().flatMapMany(videoList -> {
-            List<Mono<VideoResponseModel>> responseMonos = videoList.stream()
-                    .map(video -> VideoMapper.toRespondeModel(Mono.just(video)))
-                    .collect(Collectors.toList());
-
-            return Flux.zip(responseMonos, objects -> Arrays.stream(objects)
-                            .map(videoResponseModelMono -> ((Mono<VideoResponseModel>) videoResponseModelMono).block())
-                            .collect(Collectors.toList()))
-                    .map(responseModelsList ->
-                            new PageImpl<>(responseModelsList, Pageable.unpaged(), videoList.size()));
-        });
+    public static Flux<VideoResponseModel> listMongoToListResponseModel(Flux<VideoMongoDB> videoFlux) {
+        return videoFlux
+                .flatMap(video -> VideoMapper.toRespondeModel(Mono.just(video)))
+                .collectList()
+                .map(responseModelsList -> new PageImpl<>(responseModelsList, Pageable.unpaged(), responseModelsList.size()))
+                .flatMapMany(Flux::fromIterable);
     }
 }

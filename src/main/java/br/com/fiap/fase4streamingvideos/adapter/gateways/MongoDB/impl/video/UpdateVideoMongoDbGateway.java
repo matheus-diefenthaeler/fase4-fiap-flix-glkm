@@ -20,9 +20,9 @@ public class UpdateVideoMongoDbGateway implements IUpdateVideoGateway {
     @Override
     public Mono<VideoResponseModel> updateById(String id, VideoRequestModel videoRequestModel) {
         /* _repository.findById(id);*/
-        VideoMongoDB videoUpdated = new VideoMongoDB(id, videoRequestModel.getTitle(), videoRequestModel.getDescription(), videoRequestModel.getUrl(), videoRequestModel.getCategory());
-        Mono<VideoMongoDB> saveMono = _repository.save(videoUpdated);
-
-        return VideoMapper.toRespondeModel(saveMono);
+//        VideoMongoDB videoUpdated = new VideoMongoDB(videoRequestModel.getTitle(), videoRequestModel.getDescription(), videoRequestModel.getUrl(), videoRequestModel.getCategory());
+//        Mono<VideoMongoDB> saveMono = _repository.save(videoUpdated);
+//TODO AJUSTAR METODO!
+        return null;
     }
 }
