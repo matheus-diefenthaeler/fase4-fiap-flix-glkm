@@ -1,24 +1,24 @@
-package br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.impl;
+package br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.impl.user;
 
 import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.mapper.UserMapper;
 import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.repository.IUserMongoDbRepository;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.IUserFindGateway;
+import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.IUserFindByIdGateway;
 import br.com.fiap.fase4streamingvideos.application.user.model.response.UserResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Component
-public class UserFindMongoDbGateway implements IUserFindGateway {
+public class UserFindByIdMongoDbGateway implements IUserFindByIdGateway {
 
     @Autowired
     IUserMongoDbRepository repository;
 
-    public UserFindMongoDbGateway() {
+    public UserFindByIdMongoDbGateway() {
     }
 
     @Override
-    public Flux<UserResponseModel> findAll() {
-        return UserMapper.toFluxResponseModel(repository.findAll());
+    public Mono<UserResponseModel> findById(String id) {
+        return UserMapper.toResponseModel(repository.findById(id));
     }
 }

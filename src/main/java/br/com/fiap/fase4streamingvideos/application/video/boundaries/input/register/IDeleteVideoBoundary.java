@@ -1,6 +1,7 @@
 package br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register;
 
-public interface IDeleteVideoBoundary {
+import reactor.core.publisher.Mono;
 
-    void deleteById(Long id);
+public interface IDeleteVideoBoundary {
+    Mono<Void> deleteById(String id);
 }

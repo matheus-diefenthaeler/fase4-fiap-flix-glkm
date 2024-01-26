@@ -18,7 +18,6 @@ public class UserMongoDB {
     public UserMongoDB(String name, String email) {
         this.name = name;
         this.email = email;
-
     }
 
     public String getId() {
