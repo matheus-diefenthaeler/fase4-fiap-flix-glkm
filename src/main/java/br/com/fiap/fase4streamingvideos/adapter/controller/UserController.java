@@ -39,10 +39,9 @@ public class UserController {
         return inputFindByIdBoundary.findById(id);
     }
 
-    @GetMapping("/{id}/favoritos")
+    @GetMapping("/{id}/favorites")
     public Flux<?> getFavorites(@PathVariable String id) {
         return iGetUserFavoritesBoundary.getFavorites(id);
 
     }
-
 }

@@ -7,7 +7,6 @@ import br.com.fiap.fase4streamingvideos.domain.factories.IUserFactory;
 import reactor.core.publisher.Flux;
 
 public class GetUserFavoritesInteractor implements IGetUserFavoritesBoundary {
-
     IUserPresenter presenter;
     IUserFactory factory;
     IGetUserFavoritesGateway gateway;
@@ -17,7 +16,6 @@ public class GetUserFavoritesInteractor implements IGetUserFavoritesBoundary {
         this.factory = factory;
         this.gateway = gateway;
     }
-
 
     @Override
     public Flux<?> getFavorites(String id) {

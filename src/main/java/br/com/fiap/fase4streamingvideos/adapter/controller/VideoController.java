@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -26,8 +27,9 @@ public class VideoController {
     private final IDeleteVideoBoundary deleteVideoBoundary;
 
     @GetMapping("/{id}")
-    public Mono<VideoResponseModel> findByID(@PathVariable String id) {
-        return readVideoBoundary.findById(id);
+    public Mono<ResponseEntity<VideoResponseModel>> findByID(@PathVariable String id) {
+        return readVideoBoundary.findById(id)
+                .map(video -> ResponseEntity.ok().body(video));
     }
 
     @GetMapping
@@ -39,21 +41,20 @@ public class VideoController {
     }
 
     @PostMapping
-    public Mono<VideoResponseModel> create(@RequestBody VideoRequestModel requestModel) {
-        return inputBoundary.create(requestModel);
+    public Mono<ResponseEntity<VideoResponseModel>> create(@RequestBody VideoRequestModel requestModel) {
+        return inputBoundary.create(requestModel)
+                .map(createdVideo -> ResponseEntity.status(HttpStatus.CREATED).body(createdVideo));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Mono<VideoResponseModel>> update(@PathVariable String id, @RequestBody VideoRequestModel requestModel) {
-        Mono<VideoResponseModel> responseModel = updateVideoBoundary.updateById(id, requestModel);
-
-        return ResponseEntity.ok().body(responseModel);
+    public Mono<ResponseEntity<VideoResponseModel>> update(@PathVariable String id, @RequestBody VideoRequestModel requestModel) {
+        return updateVideoBoundary.updateById(id, requestModel)
+                .map(updatedVideo -> ResponseEntity.ok().body(updatedVideo));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Mono<Void>> delete(@PathVariable String id) {
-        this.deleteVideoBoundary.deleteById(id);
-
-        return ResponseEntity.noContent().build();
+    public Mono<ResponseEntity<Void>> delete(@PathVariable String id) {
+        return deleteVideoBoundary.deleteById(id)
+                .then(Mono.just(ResponseEntity.noContent().<Void>build()));
     }
 }

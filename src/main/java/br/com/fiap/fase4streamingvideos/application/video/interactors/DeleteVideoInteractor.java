@@ -1,6 +1,7 @@
 package br.com.fiap.fase4streamingvideos.application.video.interactors;
 
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.IDeleteVideoBoundary;
+import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.IGetAllVideosBoundary;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.IReadVideoBoundary;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IDeleteVideoGateway;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IGetVideoGateway;
@@ -16,18 +17,17 @@ import reactor.core.publisher.Mono;
 public class DeleteVideoInteractor implements IDeleteVideoBoundary {
     IVideoPresenter presenter;
     IDeleteVideoGateway gateway;
-    IGetVideoGateway getVideoGateway;
+    IReadVideoBoundary getVideoBoundary;
 
-    public DeleteVideoInteractor(IVideoPresenter presenter, IDeleteVideoGateway gateway, IGetVideoGateway getVideoGateway) {
+    public DeleteVideoInteractor(IVideoPresenter presenter, IDeleteVideoGateway gateway, IReadVideoBoundary getVideoBoundary) {
         this.presenter = presenter;
         this.gateway = gateway;
-        this.getVideoGateway = getVideoGateway;
+        this.getVideoBoundary = getVideoBoundary;
     }
 
     @Override
     public Mono<Void> deleteById(String id) {
-        getVideoGateway.findById(id);
-
-        return gateway.deleteById(id);
+        return getVideoBoundary.findById(id)
+                .then(gateway.deleteById(id));
     }
 }

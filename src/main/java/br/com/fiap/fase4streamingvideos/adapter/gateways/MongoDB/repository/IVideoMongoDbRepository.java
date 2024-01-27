@@ -11,9 +11,6 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface IVideoMongoDbRepository extends ReactiveMongoRepository<VideoMongoDB, String> {
     Mono<Boolean> existsByTitle(String title);
-
-    Mono<Void> deleteById(String id);
-
     @Query("{}")
     Flux<VideoMongoDB> findAll(Pageable pageable);
 }

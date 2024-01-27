@@ -26,6 +26,6 @@ public class GetUserFavoritesMongoDbGateway implements IGetUserFavoritesGateway 
         return repository.findById(id)
                 .flatMapMany(userMongoDB -> Flux.fromIterable(userMongoDB.getFavoriteVideos()))
                 .map(VideoMongoDB::getTitle)
-                .switchIfEmpty(Flux.empty()); // Retorna um Flux vazio se o usuário não for encontrado
+                .switchIfEmpty(Flux.empty());
     }
 }

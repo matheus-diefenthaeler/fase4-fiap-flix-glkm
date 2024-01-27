@@ -1,5 +1,6 @@
 package br.com.fiap.fase4streamingvideos.application.video.interactors;
 
+import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.IReadVideoBoundary;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.input.register.IUpdateVideoBoundary;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IGetVideoGateway;
 import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IUpdateVideoGateway;
@@ -12,25 +13,27 @@ import reactor.core.publisher.Mono;
 public class UpdateVideoInteractor implements IUpdateVideoBoundary {
     IVideoPresenter presenter;
     IUpdateVideoGateway gateway;
-    IGetVideoGateway getVideoGateway;
+    IReadVideoBoundary getVideoBoundary;
 
-    public UpdateVideoInteractor(IVideoPresenter presenter, IUpdateVideoGateway gateway, IGetVideoGateway getVideoGateway) {
+    public UpdateVideoInteractor(IVideoPresenter presenter, IUpdateVideoGateway gateway, IReadVideoBoundary getVideoBoundary) {
         this.presenter = presenter;
         this.gateway = gateway;
-        this.getVideoGateway = getVideoGateway;
+        this.getVideoBoundary = getVideoBoundary;
     }
 
     @Override
     public Mono<VideoResponseModel> updateById(String id, VideoRequestModel videoRequestModel) {
-        getVideoGateway.findById(id);
+        return getVideoBoundary.findById(id)
+                .switchIfEmpty(Mono.error(new VideoCustomException("Video not found with id: " + id)))
+                .flatMap(existingVideo -> {
 
-        if(videoRequestModel.getTitle() == null) return presenter.prepareFailView(new VideoCustomException("title field is mandatory"));
-        if(videoRequestModel.getDescription() == null) return presenter.prepareFailView(new VideoCustomException("description field is mandatory"));
-        if(videoRequestModel.getUrl() == null) return presenter.prepareFailView(new VideoCustomException("url field is mandatory"));
-        if(videoRequestModel.getCategory() == null) return presenter.prepareFailView(new VideoCustomException("category field is mandatory"));
+                    if (videoRequestModel.getTitle() == null || videoRequestModel.getDescription() == null ||
+                            videoRequestModel.getUrl() == null || videoRequestModel.getCategory() == null) {
+                        return presenter.prepareFailView(new VideoCustomException("All fields (title, description, url, category) are mandatory"));
+                    }
 
-        Mono<VideoResponseModel> videoResponseModel = gateway.updateById(id, videoRequestModel);
-
-        return presenter.prepareSuccessView(videoResponseModel);
+                    return gateway.updateById(id, videoRequestModel);
+                })
+                .flatMap(videoUpdated -> presenter.prepareSuccessView(Mono.just(videoUpdated)));
     }
 }

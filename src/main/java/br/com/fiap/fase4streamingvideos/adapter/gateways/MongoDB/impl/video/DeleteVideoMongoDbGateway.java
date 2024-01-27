@@ -16,5 +16,7 @@ public class DeleteVideoMongoDbGateway implements IDeleteVideoGateway {
 
     @Override
     @Transactional
-    public Mono<Void> deleteById(String id) { return _repository.deleteById(id); }
+    public Mono<Void> deleteById(String id) {
+        return _repository.deleteById(id);
+    }
 }

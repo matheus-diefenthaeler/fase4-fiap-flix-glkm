@@ -39,12 +39,12 @@ public class VideoConfiguration {
     }
 
     @Bean
-    public IUpdateVideoBoundary updateVideoBoundary(IVideoPresenter videoPresenter, IUpdateVideoGateway updateVideoGateway, IGetVideoGateway getVideoGateway){
-        return new UpdateVideoInteractor(videoPresenter, updateVideoGateway, getVideoGateway);
+    public IUpdateVideoBoundary updateVideoBoundary(IVideoPresenter videoPresenter, IUpdateVideoGateway updateVideoGateway, IReadVideoBoundary getVideoBoundary){
+        return new UpdateVideoInteractor(videoPresenter, updateVideoGateway, getVideoBoundary);
     }
 
     @Bean
-    public IDeleteVideoBoundary deleteVideoBoundary(IVideoPresenter videoPresenter, IDeleteVideoGateway deleteVideoGateway, IGetVideoGateway getVideoGateway){
-        return new DeleteVideoInteractor(videoPresenter, deleteVideoGateway, getVideoGateway);
+    public IDeleteVideoBoundary deleteVideoBoundary(IVideoPresenter videoPresenter, IDeleteVideoGateway deleteVideoGateway, IReadVideoBoundary getVideoBoundary){
+        return new DeleteVideoInteractor(videoPresenter, deleteVideoGateway, getVideoBoundary);
     }
 }
