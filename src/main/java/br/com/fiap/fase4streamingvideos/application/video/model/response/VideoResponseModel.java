@@ -3,8 +3,7 @@ package br.com.fiap.fase4streamingvideos.application.video.model.response;
 import java.util.Objects;
 
 public class VideoResponseModel {
-
-    private Long id;
+    private String id;
     private String titulo;
     private String descricao;
     private String url;
@@ -23,11 +22,11 @@ public class VideoResponseModel {
         this.category = category;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public VideoResponseModel setId(Long id) {
+    public VideoResponseModel setId(String id) {
         this.id = id;
         return this;
     }

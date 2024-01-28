@@ -7,10 +7,12 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
-public interface IUserMongoDbRepository extends ReactiveMongoRepository<UserMongoDB, Long> {
+public interface IUserMongoDbRepository extends ReactiveMongoRepository<UserMongoDB, String> {
     Mono<UserMongoDB> findByName(String name);
 
     Mono<Boolean> existsByEmail(String email);
 
     Flux<UserMongoDB> findAll();
+
+    Mono<Void> deleteByEmail(String email);
 }

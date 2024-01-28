@@ -5,9 +5,7 @@ public class VideoCustomException extends RuntimeException{
     public VideoCustomException() {
     }
 
-    public VideoCustomException(String message) {
-        super(message);
-    }
+    public VideoCustomException(String message) { super(message); }
 
     public VideoCustomException(String message, Throwable cause) {
         super(message, cause);
