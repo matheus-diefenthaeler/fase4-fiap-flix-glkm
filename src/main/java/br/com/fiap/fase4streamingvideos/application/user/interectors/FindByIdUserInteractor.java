@@ -24,7 +24,6 @@ public class FindByIdUserInteractor implements IFindByIdUserBoundary {
 
     @Override
     public Mono<UserResponseModel> findById(String id) {
-        return gateway.findById(id).switchIfEmpty(Mono.error(new UserCustomException("ID not found!")))
-                .onErrorResume(UserCustomException.class, e -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage())));
+        return gateway.findById(id).switchIfEmpty(Mono.error(new UserCustomException("User id not found")));
     }
 }

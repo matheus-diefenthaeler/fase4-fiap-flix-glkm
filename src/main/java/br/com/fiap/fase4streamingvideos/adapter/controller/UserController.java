@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("v1/users")
+@RequestMapping("/v1/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -42,6 +42,5 @@ public class UserController {
     @GetMapping("/{id}/favorites")
     public Flux<?> getFavorites(@PathVariable String id) {
         return iGetUserFavoritesBoundary.getFavorites(id);
-
     }
 }
