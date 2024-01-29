@@ -12,4 +12,6 @@ public interface IVideo {
     LocalDate getCreatedAt();
 
     String getCategory();
+
+    Long getViews();
 }

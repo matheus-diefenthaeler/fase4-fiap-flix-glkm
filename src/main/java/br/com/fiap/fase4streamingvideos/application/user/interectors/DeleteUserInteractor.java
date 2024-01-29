@@ -26,8 +26,7 @@ public class DeleteUserInteractor implements IDeleteUserBoundary {
         return gateway.existsByEmail(email)
                 .flatMap(emailExists -> emailExists
                         ? gateway.deleteByEmail(email).then()
-                        : Mono.error(new UserCustomException("Email not found in database")))
-                .onErrorResume(UserCustomException.class, e -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage())));
+                        : Mono.error(new UserCustomException("Email not found in database")));
     }
 
 }

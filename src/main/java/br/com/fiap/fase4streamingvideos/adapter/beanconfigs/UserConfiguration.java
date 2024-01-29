@@ -1,13 +1,22 @@
 package br.com.fiap.fase4streamingvideos.adapter.beanconfigs;
 
 import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.impl.user.UserCreationMongoDbGateway;
+import br.com.fiap.fase4streamingvideos.adapter.gateways.MongoDB.impl.video.VideoCreationMongoDbGateway;
 import br.com.fiap.fase4streamingvideos.adapter.presenter.UserPresenter;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.*;
-import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.*;
-import br.com.fiap.fase4streamingvideos.application.user.interectors.*;
+import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.ICreateUserBoundary;
+import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.IDeleteUserBoundary;
+import br.com.fiap.fase4streamingvideos.application.user.boundaries.input.IFindAllUserBoundary;
+import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.IUserDeleteGateway;
+import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.IUserFindGateway;
+import br.com.fiap.fase4streamingvideos.application.user.boundaries.output.IUserRegisterGateway;
+import br.com.fiap.fase4streamingvideos.application.user.interectors.CreateUserInteractor;
+import br.com.fiap.fase4streamingvideos.application.user.interectors.DeleteUserInteractor;
+import br.com.fiap.fase4streamingvideos.application.user.interectors.FindAllUserInteractor;
 import br.com.fiap.fase4streamingvideos.application.user.presenter.IUserPresenter;
+import br.com.fiap.fase4streamingvideos.application.video.boundaries.output.register.IVideoExistsGateway;
 import br.com.fiap.fase4streamingvideos.domain.factories.IUserFactory;
 import br.com.fiap.fase4streamingvideos.domain.factories.UserFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -52,6 +61,15 @@ public class UserConfiguration {
     @Bean
     public IGetUserFavoritesBoundary getUserFavoritesBoundary(IUserPresenter userPresenter, IUserFactory userFactory, IGetUserFavoritesGateway getUserFavoritesGateway) {
         return new GetUserFavoritesInteractor(userPresenter, userFactory, getUserFavoritesGateway);
+    }
+
+    @Bean
+    public IUserWatchVideoBoundary watchVideoBoundary(IUserPresenter userPresenter,
+                                                      IUserFactory userFactory,
+                                                      IWatchVideoUserGateway watchVideoUserGateway,
+                                                      @Qualifier("userCreationMongoDbGateway") IUserExistsGateway userGateway,
+                                                      @Qualifier("videoCreationMongoDbGateway") IVideoExistsGateway videoGateway) {
+        return new WatchVideoUserInteractor(userPresenter, userFactory, watchVideoUserGateway, userGateway, videoGateway);
     }
 
 }

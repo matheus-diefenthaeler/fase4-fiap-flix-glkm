@@ -16,20 +16,19 @@ import reactor.core.publisher.Mono;
 public class GetVideoMongoDbGateway implements IGetVideoGateway {
 
     @Autowired
-    IVideoMongoDbRepository repository;
+    IVideoMongoDbRepository _repository;
 
     public GetVideoMongoDbGateway() {
     }
 
     @Override
     public Mono<Boolean> existsByTitle(String title) {
-        return this.repository.existsByTitle(title);
+        return this._repository.existsByTitle(title);
     }
 
     @Override
     public Mono<VideoResponseModel> findById(String id) {
-        Mono<VideoMongoDB> video = repository.findById(id).switchIfEmpty(Mono.error(new VideoCustomException("ID not found!")))
-                .onErrorResume(VideoCustomException.class, e -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage())));
+        Mono<VideoMongoDB> video = _repository.findById(id);
         return VideoMapper.toRespondeModel(video);
     }
 }

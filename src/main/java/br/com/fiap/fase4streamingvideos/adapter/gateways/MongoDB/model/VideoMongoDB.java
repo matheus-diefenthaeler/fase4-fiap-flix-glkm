@@ -14,25 +14,35 @@ public class VideoMongoDB {
     private String url;
     private LocalDate createdAt;
     private String category;
+    private Long views;
 
     public VideoMongoDB() {}
 
-    public VideoMongoDB(String title, String description, String url, LocalDate createdAt, String category) {
+    public VideoMongoDB(String title, String description, String url, LocalDate createdAt, String category, Long views) {
         this.title = title;
         this.description = description;
         this.url = url;
         this.createdAt = createdAt;
         this.category = category;
+        this.views = views;
     }
 
-    // TODO removendo temporariamente AJUSTAR METODO DEPOIS
-//    public VideoMongoDB(String id, String title, String description, String url, String category) {
-//        this.id = id;
-//        this.title = title;
-//        this.description = description;
-//        this.url = url;
-//        this.category = category;
-//    }
+    public VideoMongoDB(String title, String description, String url, String category) {
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.category = category;
+        this.views = 0L;
+    }
+
+
+    public Long getViews() {
+        return views;
+    }
+
+    public void setViews(Long views) {
+        this.views = views;
+    }
 
     public String getId() {
         return id;
@@ -80,6 +90,10 @@ public class VideoMongoDB {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public void incrementViews(){
+        this.views++;
     }
 
     @Override

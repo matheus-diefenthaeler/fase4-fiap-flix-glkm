@@ -22,9 +22,9 @@ public class ReadVideoInteractor implements IReadVideoBoundary {
 
     @Override
     public Mono<VideoResponseModel> findById(String id) throws VideoCustomException {
-        Mono<VideoResponseModel> model = gateway.findById(id);
-
-        return presenter.prepareSuccessView(model);
+        return gateway.findById(id)
+                .switchIfEmpty(Mono.error(new VideoCustomException("Video not found with id: " + id)))
+                .flatMap(video -> presenter.prepareSuccessView(Mono.just(video)));
     }
 }
 

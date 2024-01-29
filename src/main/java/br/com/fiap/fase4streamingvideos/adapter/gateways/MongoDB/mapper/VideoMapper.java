@@ -24,6 +24,7 @@ public class VideoMapper {
             videoResponseModel.setDescricao(videoMongoDB.getDescription());
             videoResponseModel.setCreatedAt(String.valueOf(videoMongoDB.getCreatedAt()));
             videoResponseModel.setCategory(videoMongoDB.getCategory());
+            videoResponseModel.setViews(videoMongoDB.getViews());
 
             return videoResponseModel;
         });

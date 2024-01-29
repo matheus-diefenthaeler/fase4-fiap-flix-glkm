@@ -20,10 +20,9 @@ public class VideoCreationMongoDbGateway implements IVideoRegisterGateway {
 
     @Override
     public Mono<VideoResponseModel> save(IVideo iVideo) {
-        VideoMongoDB video = new VideoMongoDB(iVideo.getTitle(), iVideo.getUrl(), iVideo.getCategory(), iVideo.getCreatedAt(), iVideo.getDescription());
+        VideoMongoDB video = new VideoMongoDB(iVideo.getTitle(), iVideo.getUrl(), iVideo.getCategory(), iVideo.getCreatedAt(), iVideo.getDescription(), iVideo.getViews());
 
         Mono<VideoMongoDB> saveMono = repository.save(video);
-
 
         return VideoMapper.toRespondeModel(saveMono);
     }
