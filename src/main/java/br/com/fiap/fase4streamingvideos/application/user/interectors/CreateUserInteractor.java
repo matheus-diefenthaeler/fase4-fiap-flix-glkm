@@ -6,9 +6,9 @@ import br.com.fiap.fase4streamingvideos.application.user.exception.UserCustomExc
 import br.com.fiap.fase4streamingvideos.application.user.model.request.UserRequestModel;
 import br.com.fiap.fase4streamingvideos.application.user.model.response.UserResponseModel;
 import br.com.fiap.fase4streamingvideos.application.user.presenter.IUserPresenter;
-import br.com.fiap.fase4streamingvideos.application.video.exception.VideoCustomException;
 import br.com.fiap.fase4streamingvideos.domain.IUser;
 import br.com.fiap.fase4streamingvideos.domain.factories.IUserFactory;
+import reactor.core.publisher.Mono;
 
 public class CreateUserInteractor implements ICreateUserBoundary {
 
@@ -23,15 +23,18 @@ public class CreateUserInteractor implements ICreateUserBoundary {
     }
 
     @Override
-    public UserResponseModel create(UserRequestModel requestModel) throws VideoCustomException {
-        if (gateway.existsByEmail(requestModel.getEmail())) {
-            return presenter.prepareFailView(new UserCustomException("Email: " + requestModel.getEmail() + " already in database"));
-        }
+    public Mono<UserResponseModel> create(UserRequestModel requestModel) throws UserCustomException {
+        return gateway.existsByEmail(requestModel.getEmail())
+                .flatMap(emailExists -> {
+                    if (emailExists) {
+                        return presenter.prepareFailView(new UserCustomException("Email: " + requestModel.getEmail() + " already in database"));
+                    }
 
-        IUser user = factory.create(requestModel.getName(), requestModel.getEmail());
+                    IUser user = factory.create(requestModel.getName(), requestModel.getEmail());
 
-        UserResponseModel save = gateway.save(user);
+                    Mono<UserResponseModel> save = gateway.save(user);
 
-        return presenter.prepareSuccessView(save);
+                    return presenter.prepareSuccessView(save);
+                });
     }
 }
