@@ -8,7 +8,7 @@ public class Favorite implements IFavorite {
     private String nameVideo;
     private LocalDate addedAt;
 
-    public Favorite(String idVideo, String idUser, String nameVideo) {
+    public Favorite(String idUser, String idVideo, String nameVideo) {
         this.idVideo = idVideo;
         this.idUser = idUser;
         this.nameVideo = nameVideo;

@@ -38,20 +38,20 @@ public class CreateFavoriteInteractor implements ICreateFavoriteBoundary {
 
                     return findByIdUserBoundary.findById(requestModel.getIdUser()).flatMap(user -> {
                         return readVideoBoundary.findById(requestModel.getIdVideo())
-                            .flatMap(video -> {
-                                String nameVideo = video.getTitulo();
+                                .flatMap(video -> {
+                                    String nameVideo = video.getTitulo();
 
-                                IFavorite favorite = factory.create(requestModel.getIdVideo(), requestModel.getIdUser(), nameVideo);
+                                    IFavorite favorite = factory.create(requestModel.getIdUser(), requestModel.getIdVideo(), nameVideo);
 
-                                return gateway.save(favorite)
-                                        .flatMap(savedFavorite -> presenter.prepareSuccessView(Mono.just(savedFavorite)))
-                                        .switchIfEmpty(Mono.defer(() -> {
-                                            return presenter.prepareFailView(new FavoriteCustomException("Video not found: " + requestModel.getIdVideo()));
-                                        }));
-                            })
-                            .switchIfEmpty(Mono.defer(() -> {
-                                return presenter.prepareFailView(new FavoriteCustomException("Video not found: " + requestModel.getIdVideo()));
-                            }));
+                                    return gateway.save(favorite)
+                                            .flatMap(savedFavorite -> presenter.prepareSuccessView(Mono.just(savedFavorite)))
+                                            .switchIfEmpty(Mono.defer(() -> {
+                                                return presenter.prepareFailView(new FavoriteCustomException("Video not found: " + requestModel.getIdVideo()));
+                                            }));
+                                })
+                                .switchIfEmpty(Mono.defer(() -> {
+                                    return presenter.prepareFailView(new FavoriteCustomException("Video not found: " + requestModel.getIdVideo()));
+                                }));
                     });
                 });
     }

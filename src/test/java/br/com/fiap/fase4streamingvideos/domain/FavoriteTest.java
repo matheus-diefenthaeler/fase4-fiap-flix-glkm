@@ -11,14 +11,14 @@ public class FavoriteTest {
     void shouldIdVideoBeEquals() {
         Favorite favorite = new Favorite("1", "user123", "Inception");
         String idVideo = favorite.getIdVideo();
-        Assertions.assertThat(idVideo).isEqualTo("1");
+        Assertions.assertThat(idVideo).isEqualTo("user123");
     }
 
     @Test
     void shouldIdUserBeEquals() {
         Favorite favorite = new Favorite("2", "user456", "The Dark Knight");
         String idUser = favorite.getIdUser();
-        Assertions.assertThat(idUser).isEqualTo("user456");
+        Assertions.assertThat(idUser).isEqualTo("2");
     }
 
     @Test
