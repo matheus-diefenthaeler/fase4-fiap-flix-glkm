@@ -11,6 +11,8 @@ public class VideoResponseModel {
 
     private String category;
 
+    private Long views;
+
     public VideoResponseModel() {
     }
 
@@ -20,6 +22,15 @@ public class VideoResponseModel {
         this.url = url;
         this.createdAt = createdAt;
         this.category = category;
+        this.views = 0L;
+    }
+
+    public Long getViews() {
+        return views;
+    }
+
+    public void setViews(Long views) {
+        this.views = views;
     }
 
     public String getId() {

@@ -9,13 +9,17 @@ public class Video implements IVideo {
     private LocalDate createdAt;
     private String category;
 
+    private Long views;
+
     public Video(String title, String description, String url, String category) {
         this.title = title;
         this.description = description;
         this.url = url;
         this.createdAt = LocalDate.now();
         this.category = category;
+        this.views = 0L;
     }
+
 
     @Override
     public String getTitle() {
@@ -40,5 +44,10 @@ public class Video implements IVideo {
     @Override
     public String getCategory() {
         return category;
+    }
+
+    @Override
+    public Long getViews() {
+        return views;
     }
 }
