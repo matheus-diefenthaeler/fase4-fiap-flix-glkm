@@ -5,11 +5,6 @@ import br.com.fiap.fase4streamingvideos.application.favorite.boundaries.input.IG
 import br.com.fiap.fase4streamingvideos.application.favorite.model.request.FavoriteRequestModel;
 import br.com.fiap.fase4streamingvideos.application.favorite.model.response.FavoriteResponseModel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

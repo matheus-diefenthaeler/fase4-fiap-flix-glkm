@@ -1,6 +1,7 @@
 package br.com.fiap.fase4streamingvideos.application.favorite.model.response;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class FavoriteResponseModel {
     private String id;
@@ -65,5 +66,18 @@ public class FavoriteResponseModel {
 
     public void setAddedAt(String addedAt) {
         this.addedAt = addedAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FavoriteResponseModel that = (FavoriteResponseModel) o;
+        return Objects.equals(id, that.id) && Objects.equals(idUser, that.idUser) && Objects.equals(idVideo, that.idVideo) && Objects.equals(nameVideo, that.nameVideo) && Objects.equals(addedAt, that.addedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, idUser, idVideo, nameVideo, addedAt);
     }
 }
