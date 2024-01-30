@@ -1,80 +1,83 @@
-# Streaming de Vídeo API - Tech Challenge fase 4 - Fiap
+# FIAP-FLIX  | API de Streaming de Vídeo
 
-Este projeto consiste em uma API para um serviço de streaming de vídeo, desenvolvido em Java 17 e utilizando o framework
-Spring Boot com o módulo Webflux. O banco de dados utilizado é o MongoDB. A arquitetura do projeto segue os princípios
-da Clean Architecture.
+## Estrutura do Projeto
 
-## Funcionalidades
+O projeto segue uma estrutura modular com base nos princípios da Clean Architecture, proporcionando uma separação clara de responsabilidades. 
 
-### Requisitos Funcionais:
+A estrutura principal do projeto é organizada da seguinte forma:
 
-1. Criação, atualização, listagem e exclusão de vídeos.
-2. Listagem de vídeos paginada e ordenável por data de publicação.
-3. Sistema de marcação de vídeos como favoritos.
-4. Categorias para os vídeos e filtragem por categoria na listagem.
+1. **adapter:** Contendo as classes responsáveis pela comunicação externa, como controladores REST, interfaces de banco de dados, e outros detalhes específicos de implementação;
 
-## Webflux
+2. **application:** Aqui são definidos os casos de uso da aplicação, que representam a lógica de negócios. Sendo esta camada a responsável por coordenar as interações entre os componentes;
 
-O Spring WebFlux é um módulo do Spring Framework que oferece suporte para a criação de aplicativos reativos baseados em
-Java. Ele permite construir APIs reativas de forma eficiente, aproveitando ao máximo o modelo de programação reativa.
-Uma das principais vantagens de trabalhar com o WebFlux é sua capacidade de lidar com um grande número de conexões de
-forma eficiente e escalável, graças ao modelo assíncrono e não bloqueante. Isso significa que a aplicação pode suportar
-um grande volume de requisições com um número relativamente pequeno de threads, resultando em um uso mais eficiente dos
-recursos do sistema.
+3. **domain:** Contém as entidades do domínio e as regras de negócio. Esta camada é independente de qualquer tecnologia ou framework específico, garantindo reutilização em diferentes contextos.
 
-## Arquitetura Clean Architecture
+## Tecnologias Utilizadas
 
-A Clean Architecture é uma abordagem para projetar sistemas de software que enfatiza a separação de preocupações e a
-independência das camadas. Na arquitetura Clean, o código é dividido em camadas, cada uma com sua própria
-responsabilidade claramente definida. As três camadas principais são:
+Aqui estão algumas das principais tecnologias e bibliotecas utilizadas:
 
-![img.png](assets/img.png)
+1. **Java 17:**
+  - Atualmente a versão LTS mais estável e com uma gama muito maior de suporte da própria comunidade e da Oracle.
 
-### Adapter
+2. **Spring Boot:**
+  - Framework que simplifica o desenvolvimento de aplicativos Java. No contexto deste projeto, o módulo Webflux é utilizado para construir APIs reativas.
 
-A camada Adapter é responsável por converter os dados da aplicação para formatos específicos de entrada e saída. Ela
-lida com detalhes de comunicação externa, como APIs REST, bancos de dados e serviços. Isso permite que a lógica de
-negócios da aplicação permaneça independente de detalhes de implementação específicos.
+3. **Spring Data MongoDB e MongoDB Driver:**
+  - Integração com o MongoDB para facilitar as operações de banco de dados através do driver oficial para Java.
 
-### Application
+4. **Lombok:**
+  - Biblioteca que simplifica a criação de classes Java, reduzindo a necessidade de escrever código boilerplate.
 
-A camada Application contém os casos de uso da aplicação, ou seja, a lógica de negócios da aplicação. Aqui são definidos
-os serviços e operações que a aplicação oferece aos usuários. Essa camada é responsável por coordenar as interações
-entre os diferentes componentes da aplicação e garantir que as regras de negócio sejam aplicadas de forma consistente.
+5. **JUnit e TestNG:**
+  - Frameworks de teste para escrever e executar testes unitários e de integração.
 
-### Domain
-
-A camada Domain contém as entidades e regras de negócio da aplicação. Ela representa o coração da aplicação, onde as
-principais regras e conceitos do domínio são modelados. Essa camada é independente de qualquer tecnologia ou framework
-específico e pode ser reutilizada em diferentes contextos sem modificar sua lógica interna.
-
-## Benefícios de Usar o Webflux
-
-- **Programação Reativa:** O Webflux utiliza um modelo de programação reativa, que permite lidar com um grande número de
-  requisições de forma eficiente e escalável, sem a necessidade de alocar um thread para cada conexão. Isso resulta em
-  uma utilização mais eficiente dos recursos do sistema e melhor desempenho em situações de alto tráfego.
-- **Assincronicidade e Não Bloqueio:** As operações no Webflux são assíncronas e não bloqueantes, o que significa que o
-  thread não fica bloqueado esperando a resposta de uma operação de E/S. Isso permite que o thread seja liberado para
-  lidar com outras tarefas enquanto aguarda a conclusão da operação, aumentando a capacidade de resposta da aplicação.
-- **Suporte a Programação Funcional:** O Webflux suporta programação funcional, o que permite escrever código de forma
-  mais concisa e expressiva, facilitando o desenvolvimento e manutenção da aplicação.
-
-## Benefícios de Usar a Arquitetura Clean
-
-- **Separação de Responsabilidades:** A arquitetura Clean separa as responsabilidades da aplicação em diferentes
-  camadas, tornando o código mais modular e fácil de entender. Isso facilita a manutenção e evolução da aplicação ao
-  longo do tempo.
-- **Independência de Tecnologia:** As camadas da arquitetura Clean são independentes de qualquer tecnologia ou framework
-  específico, o que permite que elas sejam reutilizadas em diferentes contextos sem modificar sua lógica interna. Isso
-  torna a aplicação mais flexível e fácil de adaptar a novos requisitos e tecnologias.
-- **Testabilidade:** A separação de responsabilidades e a clara definição das interfaces entre as camadas facilita a
-  escrita de testes automatizados para cada componente da aplicação. Isso ajuda a garantir a qualidade e robustez da
-  aplicação, permitindo detectar e corrigir problemas de forma rápida e eficiente.
+6. **Reactor:**
+  - Biblioteca reativa utilizada pelo Webflux para suportar programação reativa.
 
 ## Como Executar
 
-1. Certifique-se de ter o Java 17 e o MongoDB instalados em seu sistema.
-2. Clone este repositório.
-3. Importe o projeto em sua IDE preferida.
-4. Configure as informações do banco de dados no arquivo `application.properties`.
+1. Certifique-se de ter o Java 17 e o MongoDB instalados em seu sistema;
+2. Clone este repositório;
+3. Importe o projeto em sua IDE preferida;
+4. Configure as informações do banco de dados no arquivo `application.properties`;
 5. Execute a aplicação.
+
+## Benefícios de Usar o Webflux
+
+### Programação Reativa
+
+O Webflux utiliza um modelo de programação reativa, permitindo lidar eficientemente com um grande número de requisições. 
+
+Essa abordagem escalável não requer a alocação de um thread para cada conexão, resultando em uma utilização mais eficiente dos recursos do sistema, especialmente em situações de alto tráfego.
+
+### Assincronicidade e Não Bloqueio
+
+As operações no Webflux são assíncronas e não bloqueantes. Isso significa que a thread não fica bloqueada enquanto espera a resposta de uma operação de I/O.
+
+A liberação da thread para lidar com outras tarefas durante a espera aumenta a capacidade de resposta da aplicação.
+
+### Suporte a Programação Funcional
+
+O Webflux suporta programação funcional, permitindo escrever código de maneira mais concisa e expressiva. 
+
+Essa característica facilita o desenvolvimento e a manutenção da aplicação.
+
+## Benefícios de Usar a Clean Architecture
+
+![img.png](assets/img.png)
+
+### Separação de Responsabilidades
+
+A Clean Architecture separa as responsabilidades da aplicação em diferentes camadas, tornando o código mais modular e fácil de entender. Isso facilita a manutenção e evolução da aplicação ao longo do tempo.
+
+### Independência de Tecnologia
+
+As camadas da Clean Architecture são independentes de qualquer tecnologia ou framework específico. 
+
+Isso possibilita a reutilização em diferentes contextos sem modificar a lógica interna, tornando a aplicação mais flexível e fácil de adaptar a novos requisitos e tecnologias.
+
+### Testabilidade
+
+A separação de responsabilidades e a clara definição das interfaces entre as camadas facilitam a escrita de testes automatizados para cada componente da aplicação. 
+
+Isso contribui para garantir a qualidade e robustez da aplicação, permitindo detectar e corrigir problemas de forma rápida e eficiente.
