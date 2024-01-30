@@ -16,23 +16,17 @@ A estrutura principal do projeto é organizada da seguinte forma:
 
 Aqui estão algumas das principais tecnologias e bibliotecas utilizadas:
 
-1. **Java 17:**
-  - Atualmente a versão LTS mais estável e com uma gama muito maior de suporte da própria comunidade e da Oracle.
+1. **Java 17:** Atualmente a versão LTS mais estável e com uma gama muito maior de suporte da própria comunidade e da Oracle;
 
-2. **Spring Boot:**
-  - Framework que simplifica o desenvolvimento de aplicativos Java. No contexto deste projeto, o módulo Webflux é utilizado para construir APIs reativas.
+2. **Spring Boot:** Framework que simplifica o desenvolvimento de aplicativos Java. No contexto deste projeto, o módulo Webflux é utilizado para construir APIs reativas;
 
-3. **Spring Data MongoDB e MongoDB Driver:**
-  - Integração com o MongoDB para facilitar as operações de banco de dados através do driver oficial para Java.
+3. **Spring Data MongoDB e MongoDB Driver:** Integração com o MongoDB para facilitar as operações de banco de dados através do driver oficial para Java;
 
-4. **Lombok:**
-  - Biblioteca que simplifica a criação de classes Java, reduzindo a necessidade de escrever código boilerplate.
+4. **Lombok:** Biblioteca que simplifica a criação de classes Java, reduzindo a necessidade de escrever código boilerplate;
 
-5. **JUnit e TestNG:**
-  - Frameworks de teste para escrever e executar testes unitários e de integração.
+5. **JUnit e TestNG:** Frameworks de teste para escrever e executar testes unitários e de integração;
 
-6. **Reactor:**
-  - Biblioteca reativa utilizada pelo Webflux para suportar programação reativa.
+6. **Reactor:** Biblioteca reativa utilizada pelo Webflux para suportar programação reativa.
 
 ## Como Executar
 
